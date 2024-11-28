@@ -1,0 +1,177 @@
+Complexidade de tempo:
+
+FUNÇÃO MOCHILA (Complexidade O(n*max))
+
+---def mochila(memorizar,peso,valor,nomes,n,max):
+
+Complexidade: O(1)
+
+--- if(n<0 or max==0):
+    return 0
+
+Complexidade: O(1)
+
+--- if memorizar[n][max-1] != 0:
+    return memorizar[n][max-1]
+
+Complexidade: O(1)
+
+--- if(peso[n] > max):
+    return mochila(memorizar,peso,valor,nomes,n-1,max)
+
+Complexidade: O(n * max) (incluindo toda a recursão)
+
+--- else:
+    nao = mochila(memorizar,peso,valor,nomes,n-1,max)
+    sim = valor[n] + mochila(memorizar,peso,valor,nomes,n-1,max-peso[n])
+
+Complexidade: O(n * max)
+
+--- if sim > nao:
+    memorizar[n][max-1] = sim
+else:
+    memorizar[n][max-1] = nao
+return memorizar[n][max-1]
+
+Complexidade: O(1)
+
+
+
+FUNÇÃO GETNOMES (Complexidade (O(n))
+--- def getnomes(memorizar):
+Complexidade: O(1)
+
+--- guardar = []
+    pos = 1
+Complexidade: O(1)
+
+--- for i in range(len(memorizar)-1):
+Complexidade: O(n)
+
+--- atual = memorizar[len(memorizar)-i-1][len(memorizar[0])-pos]
+    proximo = memorizar[len(memorizar)-i-2][len(memorizar[0])-pos]
+
+Complexidade: O(1)
+
+--- if(atual != proximo):
+    guardar.append(nomes[len(memorizar)-1-i])
+    pos += peso[len(memorizar)-1-i]
+
+Complexidade: O(1)
+
+--- if pos + peso[0] <= len(memorizar[0]):
+    guardar.append(nomes[0])
+
+Complexidade: O(1)
+
+--- return guardar
+
+Complexidade: O(1)
+
+FUNÇÃO PROBLEMA (Complexidade(O(n*max)))
+
+--- def problema(peso:list,valor:list,nomes:list,max):
+Complexidade: O(1)
+
+--- memorizar = [[0 for i in range(max)] for j in peso]
+Complexidade: O(n * max)
+
+--- result = mochila(memorizar,peso,valor,nomes,len(peso)-1,max)
+Complexidade: O(n * max)
+
+--- itens = getnomes(memorizar)
+Complexidade: O(n)
+
+
+COMPLEXIDADE TOTAL DE TEMPO (O(n * max))
+
+
+
+
+
+Complexidade de espaço:
+
+FUNÇÃO MOCHILA (Complexidade O(n))
+
+---def mochila(memorizar,peso,valor,nomes,n,max):
+
+Complexidade: O(1)
+
+--- if(n<0 or max==0):
+    return 0
+
+Complexidade: O(1)
+
+--- if memorizar[n][max-1] != 0:
+    return memorizar[n][max-1]
+
+Complexidade: O(1)
+
+--- if(peso[n] > max):
+    return mochila(memorizar,peso,valor,nomes,n-1,max)
+
+Complexidade: O(n)
+
+--- else:
+    nao = mochila(memorizar,peso,valor,nomes,n-1,max)
+    sim = valor[n] + mochila(memorizar,peso,valor,nomes,n-1,max-peso[n])
+
+Complexidade: O(n)
+
+--- if sim > nao:
+    memorizar[n][max-1] = sim
+else:
+    memorizar[n][max-1] = nao
+return memorizar[n][max-1]
+
+Complexidade: O(1)
+
+
+
+FUNÇÃO GETNOMES (Complexidade (O(k))
+--- def getnomes(memorizar):
+Complexidade: O(1)
+
+--- guardar = []
+    pos = 1
+Complexidade: O(k) (Consome espaço proporcional ao N de itens selecionados)
+
+--- for i in range(len(memorizar)-1):
+Complexidade: O(1)
+
+--- atual = memorizar[len(memorizar)-i-1][len(memorizar[0])-pos]
+    proximo = memorizar[len(memorizar)-i-2][len(memorizar[0])-pos]
+
+Complexidade: O(1)
+
+--- if(atual != proximo):
+    guardar.append(nomes[len(memorizar)-1-i])
+    pos += peso[len(memorizar)-1-i]
+
+Complexidade: O(1)
+
+--- if pos + peso[0] <= len(memorizar[0]):
+    guardar.append(nomes[0])
+
+Complexidade: O(k)
+
+--- return guardar
+
+Complexidade: O(1)
+
+
+FUNÇÃO PROBLEMA (Complexidade(O(n*max)))
+
+--- def problema(peso:list,valor:list,nomes:list,max):
+Complexidade: O(1)
+
+--- memorizar = [[0 for i in range(max)] for j in peso]
+Complexidade: O(n * max)
+
+--- result = mochila(memorizar,peso,valor,nomes,len(peso)-1,max)
+Complexidade: O(n)
+
+--- itens = getnomes(memorizar)
+Complexidade: O(k)
+
+COMPLEXIDADE TOTAL DE ESPAÇO = O(n * max)
